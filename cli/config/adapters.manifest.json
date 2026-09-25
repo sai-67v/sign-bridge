@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "chat_template": "gemma-4",
+  "dataset": "CanisAI/teach-r3-multilingual",
+  "default_system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.",
+  "adapters": {
+    "teach": {
+      "display_name": "Canis R3 (TEACH pipeline)",
+      "aliases": ["r3", "teach-r3", "canis-r3", "teach-multilingual-gemma-4-e2b-r3"],
+      "system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.",
+      "description": "Published R3 LoRA — canonical name for TEACH.json pipeline nodes",
+      "gguf": "canis-models/lora/teach/teach.gguf",
+      "training_focus": "51k multi-turn R3 Socratic dialogues"
+    },
+    "gemma4good-r3": {
+      "display_name": "R3 · Training run 1",
+      "aliases": ["run1", "training-run-1", "r3", "gemma4good-r3"],
+      "system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.",
+      "description": "Gemma4good LoRA from checkpoint-17730",
+      "gguf": "canis-models/lora/gemma4good-r3/gemma4good-r3.gguf",
+      "training_focus": "mixed R3 SFT run"
+    },
+    "gemma4good-51k": {
+      "display_name": "R3 · Training run 2",
+      "aliases": ["run2", "training-run-2", "51k", "gemma4good-51k"],
+      "system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.",
+      "description": "Gemma4good LoRA trained on full ~51k canonical multi-turn R3 dialogues",
+      "gguf": "canis-models/lora/gemma4good-51k/gemma4good-51k.gguf",
+      "training_focus": "canonical dialogue corpus (HF default config)"
+    },
+    "teach-multilingual-gemma-4-e2b-r3": {
+      "display_name": "Canis R3 (published GGUF)",
+      "aliases": ["r3", "teach-r3", "canis-r3", "gemma4good"],
+      "system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.",
+      "description": "Published LoRA GGUF on Hugging Face — teach-multilingual-gemma-4-e2b-r3-Q4_K_M.gguf",
+      "gguf": "canis-models/lora/teach-multilingual-gemma-4-e2b-r3/teach-multilingual-gemma-4-e2b-r3-Q4_K_M.gguf",
+      "training_focus": "51k multi-turn R3 Socratic dialogues"
+    }
+  }
+}

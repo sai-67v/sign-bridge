@@ -1,0 +1,39 @@
+# Canis Teach — LoRA training defaults (Gemma 4 E2B + Unsloth)
+# Full run_spec JSON: see training/README.md and run_spec.hf_config.example.json
+
+run_id: canis-r3-e2b-production
+model_name: unsloth/gemma-4-E2B-unsloth-bnb-4bit
+chat_template: gemma-4
+enable_thinking: false
+max_seq_length: 4096
+
+dataset:
+  source: hf
+  hf_dataset_id: CanisAI/teach-r3-multilingual
+  hf_config: default
+  hf_split: train
+  messages_field: dialogue
+  # Production runs use full train split; smoke tests set max_samples: 256
+
+lora:
+  r: 16
+  lora_alpha: 16
+  lora_dropout: 0
+
+training:
+  max_steps: 500
+  learning_rate: 0.0002
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4
+  warmup_steps: 20
+  seed: 3407
+  logging_steps: 10
+  optim: adamw_8bit
+  report_to: none
+
+output:
+  lora_subdir: lora
+
+hardware_notes: |
+  Tested on NVIDIA RTX 4080 SUPER (16 GB VRAM) with 4-bit QLoRA via Unsloth.
+  Reduce max_seq_length or increase gradient_accumulation_steps if OOM.

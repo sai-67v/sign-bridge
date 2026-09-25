@@ -1,0 +1,96 @@
+/* Auth pages: calm paper-desk backdrop; cards use theme + shadcn tokens */
+
+.sign-container {
+  @apply relative flex flex-col items-center justify-center overflow-hidden;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--sign-bg-color);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, hsl(var(--muted) / 0.45), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 100%, hsl(var(--muted) / 0.25), transparent 50%);
+}
+
+.sign-container.sign-container--plain {
+  background-image: none;
+}
+
+/* Legacy signup / other auth panes still using .sign */
+.sign {
+  @apply relative z-10 w-full max-w-md p-10 transition-all duration-300;
+  @apply rounded-2xl animate-fade-in-up;
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border) / 0.85);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 12px 40px -12px rgba(0, 0, 0, 0.1);
+}
+
+.sign-title {
+  @apply text-2xl font-semibold tracking-tight;
+  color: var(--common-text-color);
+  text-wrap: balance;
+}
+
+.sign-desc {
+  @apply text-sm mt-2;
+  color: var(--common-semidark-text-color);
+  text-wrap: balance;
+}
+
+.input-group {
+  @apply mt-6;
+}
+
+.sign-form input {
+  @apply w-full rounded-lg pr-4 py-3 placeholder:text-muted-foreground transition-colors duration-200;
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--input));
+  color: var(--common-text-color);
+  outline: none;
+}
+
+.sign-form input:focus {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 3px hsl(var(--ring) / 0.2);
+}
+
+.sign-form .form-icon {
+  @apply absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center pointer-events-none;
+  color: var(--common-dark-text-color);
+}
+
+.sign-form .form-control {
+  @apply relative;
+}
+
+.sign-form .form-control input {
+  @apply pl-12;
+}
+
+.sign-form a {
+  color: hsl(var(--primary));
+  @apply hover:underline transition-colors duration-200;
+}
+
+.sign-form a:hover {
+  color: var(--common-primary-hover-color);
+}
+
+.btn-primary.btn-block {
+  @apply w-full py-3 rounded-lg font-semibold border-none cursor-pointer;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 2px 10px hsl(var(--primary) / 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary.btn-block:hover {
+  transform: translateY(-1px);
+  background-color: hsl(var(--primary) / 0.92);
+  box-shadow: 0 4px 16px hsl(var(--primary) / 0.3);
+}
+
+.btn-primary.btn-block:active {
+  transform: translateY(0);
+}

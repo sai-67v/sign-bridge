@@ -1,0 +1,123 @@
+.notifications-panel {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.notif-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+
+.notif-panel-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Overlay: pad-overlay-panel__header already shows "Notifications" */
+.notif-panel-header--chrome-title {
+  justify-content: flex-end;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.mark-all-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary, #3b82f6);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.mark-all-btn:hover {
+  background: var(--color-bg-hover, rgba(59,130,246,0.1));
+}
+
+.notif-list {
+  padding: 8px 0;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background 0.12s;
+  position: relative;
+}
+
+.notification-item:hover {
+  background: var(--color-bg-hover, rgba(0,0,0,0.04));
+}
+
+.notification-item.unread {
+  background: var(--color-bg-unread, rgba(59,130,246,0.05));
+}
+
+.notif-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notif-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notif-message {
+  font-size: 13px;
+  color: var(--color-text-secondary, #6b7280);
+  margin-bottom: 4px;
+}
+
+.notif-time {
+  font-size: 11px;
+  color: var(--color-text-tertiary, #9ca3af);
+}
+
+.notif-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.notif-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  color: var(--color-text-secondary, #6b7280);
+  font-size: 14px;
+  gap: 8px;
+}
+
+.notif-empty span {
+  font-size: 32px;
+}
+
+.notif-loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-text-secondary, #6b7280);
+  font-size: 14px;
+}

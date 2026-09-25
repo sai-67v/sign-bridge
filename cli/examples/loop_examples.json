@@ -1,0 +1,172 @@
+{
+  "$schema": "canis-pipeline-v1",
+  "name": "LoopExamples",
+  "description": "Demonstration of loop functionality: while, for, and foreach loops",
+  "variables": {
+    "counter": {
+      "type": "string",
+      "default": "0",
+      "persist": false
+    },
+    "items_list": {
+      "type": "list",
+      "default": [],
+      "persist": false
+    },
+    "accumulated_results": {
+      "type": "list",
+      "default": [],
+      "persist": false
+    },
+    "loop_type": {
+      "type": "string",
+      "default": "for",
+      "persist": false
+    }
+  },
+  "nodes": {
+    "entry": {
+      "type": "classifier",
+      "prompt": "Classify which loop example to demonstrate:\n\nUser input: {{input}}\n\nCategories:\n- while: User wants to see a while loop example (count until condition met)\n- for: User wants to see a for loop example (repeat N times)\n- foreach: User wants to see a foreach loop example (process list items)\n- list_extract: User wants to extract a list from text\n\nRespond with: <classification>category</classification>",
+      "max_tokens": 20,
+      "temperature": 0.1,
+      "routes": {
+        "while": "while_loop_example",
+        "for": "for_loop_example",
+        "foreach": "extract_list_for_foreach",
+        "list_extract": "list_extractor_example",
+        "*": "for_loop_example"
+      }
+    },
+    "while_loop_example": {
+      "type": "transform",
+      "input_var": "input",
+      "output_var": "counter",
+      "operation": "template",
+      "pattern": "0",
+      "next": "while_loop"
+    },
+    "while_loop": {
+      "type": "while_loop",
+      "condition_node": "while_condition",
+      "body_node": "while_body",
+      "max_iterations": 10,
+      "next": "while_complete"
+    },
+    "while_condition": {
+      "type": "classifier",
+      "prompt": "Check if counter should continue.\n\nCurrent counter: {{counter}}\n\nShould we continue if counter < 5?\n\nRespond ONLY with:\n- continue (if counter < 5)\n- break (if counter >= 5)",
+      "max_tokens": 10,
+      "temperature": 0.1,
+      "routes": {
+        "continue": "continue",
+        "break": "break",
+        "*": "break"
+      }
+    },
+    "while_body": {
+      "type": "transform",
+      "input_var": "counter",
+      "output_var": "counter",
+      "operation": "template",
+      "pattern": "{{counter}}1",
+      "next": "while_condition"
+    },
+    "while_complete": {
+      "type": "generate",
+      "system_prompt": "You are demonstrating a while loop.",
+      "user_prompt": "The while loop completed! Final counter value: {{counter}}\n\nExplain what happened briefly.",
+      "max_tokens": 200,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "for_loop_example": {
+      "type": "transform",
+      "input_var": "input",
+      "output_var": "iterations",
+      "operation": "template",
+      "pattern": "3",
+      "next": "for_loop"
+    },
+    "for_loop": {
+      "type": "for_loop",
+      "iterations_var": "iterations",
+      "body_node": "for_body",
+      "index_var": "i",
+      "max_iterations": 100,
+      "next": "for_complete"
+    },
+    "for_body": {
+      "type": "generate",
+      "system_prompt": "You are counting iterations.",
+      "user_prompt": "This is iteration {{i}} of {{iterations}}. Say something brief and creative about this number.",
+      "max_tokens": 50,
+      "temperature": 0.8,
+      "next": null
+    },
+    "for_complete": {
+      "type": "generate",
+      "system_prompt": "You are demonstrating a for loop.",
+      "user_prompt": "The for loop completed {{iterations}} iterations! Explain what happened.",
+      "max_tokens": 200,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "extract_list_for_foreach": {
+      "type": "list_extractor",
+      "source_var": "input",
+      "output_var": "items_list",
+      "extraction_prompt": "Extract all items mentioned in this text as a list:\n\n{{input}}\n\nWrap each item in <item>text</item> tags, one per line.",
+      "max_tokens": 300,
+      "temperature": 0.3,
+      "next": "foreach_loop"
+    },
+    "list_extractor_example": {
+      "type": "list_extractor",
+      "source_var": "input",
+      "output_var": "items_list",
+      "extraction_prompt": "Extract all items, tasks, or topics mentioned in this text:\n\n{{input}}\n\nWrap each item in <item>text</item> tags, one per line.",
+      "max_tokens": 300,
+      "temperature": 0.3,
+      "next": "show_list"
+    },
+    "show_list": {
+      "type": "generate",
+      "system_prompt": "You are showing extracted list items.",
+      "user_prompt": "I extracted {{items_list}} items from your text:\n\n{% for item in items_list %}{{loop.index}}. {{item}}\n{% endfor %}\n\nNote: This uses list_extractor node to parse items from text.",
+      "max_tokens": 300,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "foreach_loop": {
+      "type": "foreach_loop",
+      "list_var": "items_list",
+      "item_var": "current_item",
+      "index_var": "item_index",
+      "body_node": "foreach_body",
+      "accumulator_var": "accumulated_results",
+      "max_iterations": 50,
+      "next": "foreach_complete"
+    },
+    "foreach_body": {
+      "type": "generate",
+      "system_prompt": "You are processing list items.",
+      "user_prompt": "Process item #{{item_index}}: {{current_item}}\n\nGive a brief creative response about this item (1 sentence).",
+      "max_tokens": 60,
+      "temperature": 0.8,
+      "next": null
+    },
+    "foreach_complete": {
+      "type": "generate",
+      "system_prompt": "You are summarizing foreach loop results.",
+      "user_prompt": "Processed {{items_list}} items through foreach loop.\n\nResults:\n{% for result in accumulated_results %}{{loop.index}}. {{result}}\n{% endfor %}\n\nSummarize what we did.",
+      "max_tokens": 300,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "output": {
+      "type": "terminal"
+    }
+  },
+  "entry_node": "entry"
+}

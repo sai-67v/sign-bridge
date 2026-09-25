@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" role="img" aria-label="Canis Teach architecture">
+  <defs>
+    <style>
+      .box { fill: #f4f6fb; stroke: #1e3a5f; stroke-width: 2; rx: 8; }
+      .title { font: bold 14px system-ui,sans-serif; fill: #1e3a5f; }
+      .label { font: 12px system-ui,sans-serif; fill: #334155; }
+      .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect class="box" x="20" y="100" width="160" height="80"/>
+  <text class="title" x="100" y="135" text-anchor="middle">Student</text>
+  <text class="label" x="100" y="158" text-anchor="middle">messy input</text>
+  <rect class="box" x="240" y="60" width="200" height="160"/>
+  <text class="title" x="340" y="95" text-anchor="middle">Gemma 4 E2B</text>
+  <text class="label" x="340" y="118" text-anchor="middle">+ Canis R3 LoRA</text>
+  <text class="label" x="340" y="140" text-anchor="middle">Unsloth QLoRA</text>
+  <text class="label" x="340" y="162" text-anchor="middle">Ollama / llama.cpp</text>
+  <rect class="box" x="500" y="60" width="300" height="160"/>
+  <text class="title" x="650" y="95" text-anchor="middle">Canis Studio</text>
+  <text class="label" x="650" y="118" text-anchor="middle">Notes + AI sidebar</text>
+  <text class="label" x="650" y="140" text-anchor="middle">Teacher pulse</text>
+  <text class="label" x="650" y="162" text-anchor="middle">Appwrite backend</text>
+  <line class="arrow" x1="180" y1="140" x2="238" y2="140"/>
+  <line class="arrow" x1="440" y1="120" x2="498" y2="120"/>
+  <line class="arrow" x1="650" y1="220" x2="650" y2="250"/>
+  <line class="arrow" x1="650" y1="250" x2="340" y2="250"/>
+  <line class="arrow" x1="340" y1="250" x2="340" y2="222"/>
+  <text class="label" x="650" y="275" text-anchor="middle">local inference (optional)</text>
+</svg>

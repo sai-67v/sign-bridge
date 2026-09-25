@@ -1,0 +1,536 @@
+/* Classroom hub — aligns with .pad-home (library) chrome */
+
+.classroom-hub {
+  gap: 1.5rem;
+}
+
+.classroom-hub__masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0 1.1rem;
+}
+
+.classroom-hub__name {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--common-text-color);
+}
+
+.classroom-hub__subject {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__toolbar {
+  padding: 0 1.1rem;
+}
+
+.classroom-hub__seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--common-border-light-color);
+  background: color-mix(in srgb, var(--common-border-light-color) 35%, var(--common-bg-color));
+  max-width: 100%;
+}
+
+.classroom-hub__seg-btn {
+  border: none;
+  background: transparent;
+  color: var(--common-semidark-text-color);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.classroom-hub__seg-btn:hover {
+  color: var(--common-text-color);
+  background: var(--common-btn-bg-hover-color);
+}
+
+.classroom-hub__seg-btn--on {
+  color: var(--common-text-color);
+  background: var(--common-bg-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.classroom-hub__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1.1rem 2rem;
+}
+
+.classroom-hub__card {
+  border: 1px solid var(--common-border-light-color);
+  border-radius: 12px;
+  background: var(--common-bg-color);
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.classroom-hub__card-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__hint {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--common-dark-text-color);
+}
+
+.classroom-hub__field-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.classroom-hub__field-row .classroom-hub__input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.classroom-hub__roster-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.classroom-hub__member {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__member:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.classroom-hub__member-avatar {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: color-mix(in srgb, var(--common-border-light-color) 55%, var(--common-bg-color));
+  color: var(--common-text-color);
+}
+
+.classroom-hub__member-body {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.classroom-hub__member-id {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  color: var(--common-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.classroom-hub__member-role {
+  font-size: 0.68rem;
+  text-transform: capitalize;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__empty {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--common-dark-text-color);
+}
+
+.classroom-hub__error {
+  margin: 0 1.1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, #dc2626 40%, var(--common-border-light-color));
+  background: color-mix(in srgb, #fecaca 22%, var(--common-bg-color));
+  color: #991b1b;
+  font-size: 0.82rem;
+}
+
+.classroom-hub__loading {
+  padding: 2.5rem 1.1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__submissions {
+  padding: 0 1.1rem 1rem;
+}
+
+.classroom-hub__class-workspace {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem 1.5rem;
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__class-workspace-lede {
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.classroom-hub__tab-panel {
+  padding: 0 1.1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.classroom-hub__tab-panel__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.classroom-hub__tab-panel__lede {
+  margin: 0;
+  flex: 1 1 12rem;
+  max-width: 40rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--common-dark-text-color);
+}
+
+.classroom-hub__tab-panel__lede strong {
+  font-weight: 600;
+  color: var(--common-text-color);
+}
+
+.classroom-hub__tab-panel__footer {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__resource-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.classroom-hub__resource-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__resource-row:last-child {
+  border-bottom: none;
+}
+
+.classroom-hub__resource-main {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.classroom-hub__resource-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--common-text-color);
+}
+
+.classroom-hub__resource-meta {
+  font-size: 0.68rem;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__demo-banner {
+  margin: 0 1.1rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, #ca8a04 35%, var(--common-border-light-color));
+  background: color-mix(in srgb, #fef9c3 55%, var(--common-bg-color));
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: var(--common-dark-text-color);
+}
+
+.classroom-hub__demo-banner__tag {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #ca8a04;
+  color: #fff;
+}
+
+.classroom-hub__overview-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 900px) {
+  .classroom-hub__overview-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+    align-items: start;
+  }
+}
+
+.classroom-hub__aside {
+  min-height: 0;
+}
+
+.classroom-hub__presence-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+  margin-bottom: 0.85rem;
+}
+
+.classroom-hub__presence-tooltip-wrap {
+  display: inline-flex;
+}
+
+.classroom-hub__presence-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--common-border-light-color) 80%, transparent);
+  padding: 0;
+  cursor: default;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.classroom-hub__presence-tile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.classroom-hub__presence-tile__abbr {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Tuned so the wall reads mostly one “in class” family; idle + tutor pings stay distinct but softer */
+.classroom-hub__presence-tile--dormant {
+  background: color-mix(in srgb, #22c55e 22%, #94a3b8);
+  color: #0f172a;
+}
+
+.classroom-hub__presence-tile--away {
+  background: color-mix(in srgb, #22c55e 18%, #475569);
+  color: #f8fafc;
+}
+
+.classroom-hub__presence-tile--active {
+  background: #22c55e;
+  color: #052e16;
+}
+
+.classroom-hub__presence-tile--ai_light {
+  background: color-mix(in srgb, #22c55e 28%, #eab308);
+  color: #422006;
+}
+
+.classroom-hub__presence-tile--ai_heavy {
+  background: color-mix(in srgb, #22c55e 12%, #f97316);
+  color: #431407;
+}
+
+.classroom-hub__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__legend-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.classroom-hub__legend-swatch {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 0.18rem;
+  flex-shrink: 0;
+}
+
+.classroom-hub__legend-swatch.classroom-hub__presence-tile--dormant {
+  background: color-mix(in srgb, #22c55e 22%, #94a3b8);
+}
+.classroom-hub__legend-swatch.classroom-hub__presence-tile--away {
+  background: color-mix(in srgb, #22c55e 18%, #475569);
+}
+.classroom-hub__legend-swatch.classroom-hub__presence-tile--active {
+  background: #22c55e;
+}
+.classroom-hub__legend-swatch.classroom-hub__presence-tile--ai_light {
+  background: color-mix(in srgb, #22c55e 28%, #eab308);
+}
+.classroom-hub__legend-swatch.classroom-hub__presence-tile--ai_heavy {
+  background: color-mix(in srgb, #22c55e 12%, #f97316);
+}
+
+.classroom-hub__legend-text {
+  font-size: 0.68rem;
+  color: var(--common-semidark-text-color);
+}
+
+.classroom-hub__inquiry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: min(22rem, 52vh);
+  overflow-y: auto;
+}
+
+.classroom-hub__inquiry {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__inquiry:last-child {
+  border-bottom: none;
+}
+
+.classroom-hub__inquiry__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.classroom-hub__inquiry__ago {
+  font-size: 0.62rem;
+  color: var(--common-semidark-text-color);
+  flex-shrink: 0;
+}
+
+.classroom-hub__inquiry__text {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--common-dark-text-color);
+}
+
+.classroom-hub__details {
+  margin: 0 1.1rem 1rem;
+  border: 1px solid var(--common-border-light-color);
+  border-radius: 10px;
+  background: var(--common-bg-color);
+  overflow: hidden;
+}
+
+.classroom-hub__details-summary {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  color: var(--common-text-color);
+}
+
+.classroom-hub__details-summary::-webkit-details-marker {
+  display: none;
+}
+
+.classroom-hub__details-summary::after {
+  content: "▸";
+  float: right;
+  opacity: 0.45;
+  font-size: 0.7rem;
+}
+
+.classroom-hub__details[open] .classroom-hub__details-summary::after {
+  content: "▾";
+}
+
+.classroom-hub__details-body {
+  padding: 0 0.85rem 0.85rem;
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.classroom-hub__materials-panel__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .classroom-hub__materials-panel__head {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

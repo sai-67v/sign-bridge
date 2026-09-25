@@ -1,0 +1,18 @@
+[submodule "vendor/python-sounddevice"]
+	path = vendor/python-sounddevice
+	url = https://github.com/spatialaudio/python-sounddevice
+[submodule "vendor/faster-whisper"]
+	path = vendor/faster-whisper
+	url = https://github.com/SYSTRAN/faster-whisper
+[submodule "vendor/mediapipe"]
+	path = vendor/mediapipe
+	url = https://github.com/google-ai-edge/mediapipe
+[submodule "vendor/pose-format"]
+	path = vendor/pose-format
+	url = https://github.com/sign-language-processing/pose
+[submodule "vendor/faiss"]
+	path = vendor/faiss
+	url = https://github.com/facebookresearch/faiss
+[submodule "vendor/pyvirtualcam"]
+	path = vendor/pyvirtualcam
+	url = https://github.com/letmaik/pyvirtualcam

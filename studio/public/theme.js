@@ -1,0 +1,11 @@
+(function() {
+  const DEFAULT_THEME = `--common-text-color:  rgb(23 23 23);--common-semidark-text-color:  rgb(64 64 64);--common-dark-text-color:  rgb(115 115 115);--common-text-hover-color:  rgb(10 10 10);--common-bg-color:  rgb(252 252 250);--common-dark-bg-color:  rgb(244 244 242);--common-darker-bg-color:  rgb(235 235 232);--common-light-bg-color:  rgb(250 250 248);--common-border-hl-color:  rgb(38 38 38);--common-border-light-color:  rgb(214 214 212);--common-btn-bg-color:  rgb(255 255 255);--common-btn-bg-hover-color:  rgb(237 237 235);--common-btn-bg-active-color:  rgb(220 220 218);--common-primary-color:  rgb(38 38 38);--common-primary-hover-color:  rgb(64 64 64);--common-primary-text-color:  rgb(252 252 250);--common-border-color:  rgb(201 201 198);--sidebar-background-color:  rgb(248 248 246);--sidebar-text-color:  rgb(82 82 82);--sidebar-text-color-hover:  rgb(23 23 23);--sidebar-title-color:  rgb(38 38 38);--sidebar-user-setting-border-color:  rgb(225 225 222);--sidebar2-background-color:  rgb(252 252 250);--sidebar2-item-active-color:  rgb(23 23 23);--sidebar2-item-hover-color:  rgb(79 79 79);--editor-text-color:  rgb(23 23 23);--editor-link-text-color:  rgb(55 65 81);--editor-quote-text-color:  rgb(64 64 64);--modal-bg-color:  rgb(252 252 250);--modal-footer-bg-color:  rgb(252 252 250);--modal-border-color:  rgb(214 214 212);--setting-bg-color:  rgb(244 244 242);--sign-bg-color:  rgb(244 244 242);--sign-form-bg-color:  rgb(255 255 255);--dropdown-bg-color:  rgb(255 255 255);--dropdown-bg-hover-color:  rgb(237 237 235);--tag-bg-color:  rgb(237 237 235);--tag-text-color:  rgb(82 82 82);--button-border-active-color:  rgb(38 38 38);--button-text-active-color:  rgb(252 252 250);--desk-background-color:  rgb(232 232 230);--paper-rule-color: rgba(38, 38, 38, 0.085);--paper-grid-color: rgba(38, 38, 38, 0.065);--paper-dot-color: rgba(38, 38, 38, 0.13);--editor-surface: rgb(252 252 250)`;
+  let theme = localStorage.getItem("THEME") || DEFAULT_THEME,
+    css = `:root { ${theme}; color-scheme: light }`,
+    head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+  head.appendChild(style);
+  style.id = 'css-variable';
+  style.appendChild(document.createTextNode(css));
+})()

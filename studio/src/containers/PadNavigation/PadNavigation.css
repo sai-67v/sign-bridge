@@ -1,0 +1,84 @@
+.pad-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.pad-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+}
+
+.pad-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.pad-item.empty {
+    color: var(--text-tertiary);
+    font-style: italic;
+    cursor: default;
+}
+
+.pad-item.empty:hover {
+    background: transparent;
+}
+
+.pad-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pad-badge {
+    font-size: 0.7rem;
+    padding: 0 4px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.pad-badge.worksheet {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.pad-badge.ai {
+    background: rgba(251, 191, 36, 0.2);
+}
+
+.no-pads {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+}
+
+.pad-delete-btn {
+    padding: 0.25rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s, background 0.15s, color 0.15s;
+    margin-left: auto;
+    color: #9ca3af;
+}
+
+.pad-item:hover .pad-delete-btn {
+    opacity: 1;
+}
+
+.pad-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}

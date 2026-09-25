@@ -1,0 +1,66 @@
+Canis Teach — Gemma 4 Good Hackathon mirror repository
+Copyright 2026 CanisAI
+
+This product uses components licensed under Apache-2.0 (see LICENSE).
+Additional third-party terms apply as listed below.
+
+================================================================================
+Google Gemma — Terms of Use
+================================================================================
+
+Use of Gemma base models and derivatives is subject to the Gemma Terms of Use:
+https://ai.google.dev/gemma/terms
+
+When you fine-tune, merge, or distribute adapters on top of Gemma, you must
+comply with those terms in addition to this repository's LICENSE.
+
+================================================================================
+Unsloth
+================================================================================
+
+Training scripts in `training/` are designed for the Unsloth stack
+(https://github.com/unslothai/unsloth). Unsloth is used under its respective
+open-source license. If you redistribute Unsloth-derived training artifacts,
+follow Unsloth's license and attribution requirements.
+
+================================================================================
+E2B (Gemma 4 edge variant)
+================================================================================
+
+We target **Gemma 4 E2B** (`unsloth/gemma-4-E2B-it`) for laptop/edge QLoRA
+training. "E2B" refers to Google's Gemma 4 edge sizing nomenclature, not the
+E2B sandbox company. No affiliation implied.
+
+================================================================================
+llama.cpp / Ollama
+================================================================================
+
+Local inference paths documented in `model/inference_ollama.md` may use:
+- llama.cpp (https://github.com/ggml-org/llama.cpp) — MIT
+- Ollama (https://ollama.com) — see upstream license
+
+Adapter hot-swap and GGUF workflows follow upstream documentation.
+
+================================================================================
+Appwrite
+================================================================================
+
+Canis Studio's hosted demo uses Appwrite for auth and data
+(https://appwrite.io). Client SDK usage is subject to Appwrite's license.
+
+================================================================================
+Hugging Face datasets & adapters
+================================================================================
+
+- Dataset: CanisAI/teach-r3-multilingual
+- Adapter: CanisAI/Canis-r3-lora-adapter
+
+Respect dataset card licenses and Gemma terms when downloading weights.
+
+================================================================================
+Adaptive Data / Adaption challenge credit
+================================================================================
+
+Portions of Canis.teach R3 were produced for the Adaption "Uncharted Data"
+challenge. Derivatives should credit Adaptive Data per the dataset card on
+Hugging Face.

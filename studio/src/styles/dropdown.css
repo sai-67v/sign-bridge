@@ -1,0 +1,45 @@
+.dropdown {
+  border: 1px solid var(--common-border-light-color);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  background-color: var(--dropdown-bg-color);
+  border-radius: 0.375rem;
+  outline: none;
+  z-index: 30;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.dropdown.div-y > :not(:first-child) {
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.dropdown-content {
+  @apply cursor-pointer flex items-center px-4 py-2 text-sm;
+}
+
+.dropdown-content:hover {
+  background-color: var(--dropdown-bg-hover-color);
+}
+
+.dropdown-content:hover .dropdown-text {
+  color: var(--common-text-color); 
+}
+
+.dropdown-content:hover .dropdown-icon {
+  color: var(--common-text-color);
+}
+
+.dropdown-icon {
+  @apply mr-3 h-5 w-5;
+  color: var(--common-dark-text-color);
+}
+
+.dropdown-icon--active {
+  color: var(--editor-accent);
+}
+
+.dropdown-text {
+  @apply mr-3;
+  color: var(--common-dark-text-color);
+}
+

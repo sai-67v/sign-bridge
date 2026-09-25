@@ -1,0 +1,4 @@
+prune .github
+exclude .git*
+exclude .readthedocs.yml
+exclude src/_sounddevice_data/README

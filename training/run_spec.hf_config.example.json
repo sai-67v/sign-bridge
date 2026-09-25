@@ -1,0 +1,35 @@
+{
+  "run_id": "smoke-gemma4-e2b-r3",
+  "model_name": "unsloth/gemma-4-E2B-unsloth-bnb-4bit",
+  "chat_template": "gemma-4",
+  "enable_thinking": false,
+  "max_seq_length": 4096,
+  "dataset": {
+    "source": "hf",
+    "hf_dataset_id": "CanisAI/teach-r3-multilingual",
+    "hf_config": "default",
+    "hf_split": "train",
+    "messages_field": "dialogue",
+    "max_samples": 256
+  },
+  "lora": {
+    "r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0
+  },
+  "training": {
+    "max_steps": 60,
+    "learning_rate": 0.0002,
+    "per_device_train_batch_size": 1,
+    "gradient_accumulation_steps": 4,
+    "warmup_steps": 5,
+    "seed": 3407,
+    "logging_steps": 1,
+    "optim": "adamw_8bit",
+    "report_to": "none"
+  },
+  "output": {
+    "lora_subdir": "lora"
+  },
+  "notes": "For published 51k adapter: remove dataset.max_samples and scale training.max_steps (see training/README.md)"
+}

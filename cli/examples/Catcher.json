@@ -1,0 +1,135 @@
+{
+    "$schema": "canis-pipeline-v1",
+    "name": "Catcher",
+    "description": "Analyze student work from notes and generate personalized worksheets - processes each task individually.",
+    "variables": {
+        "student_name": {
+            "type": "string",
+            "default": "Student",
+            "persist": true
+        },
+        "context": {
+            "type": "string",
+            "default": "",
+            "persist": false
+        },
+        "task_list": {
+            "type": "list",
+            "default": [],
+            "persist": false
+        },
+        "current_task": {
+            "type": "string",
+            "default": "",
+            "persist": false
+        },
+        "task_analysis_results": {
+            "type": "list",
+            "default": [],
+            "persist": false
+        },
+        "current_expert_answer": {
+            "type": "string",
+            "default": "",
+            "persist": false
+        },
+        "analysis_report": {
+            "type": "string",
+            "default": "",
+            "persist": true
+        }
+    },
+    "nodes": {
+        "entry": {
+            "type": "classifier",
+            "prompt": "Classify the user intent.\n\nUser input: {{input}}\n\nCategories:\n- submission: Sending student work for analysis (contains student answers, homework, test responses, etc).\n- confirmation: Confirming worksheet generation (saying 'yes', 'generate', 'create worksheets', etc).\n\nRespond with ONLY: <classification>category</classification>",
+            "max_tokens": 40,
+            "routes": {
+                "submission": "extract_tasks",
+                "confirmation": "catcher",
+                "*": "extract_tasks"
+            }
+        },
+        "extract_tasks": {
+            "type": "list_extractor",
+            "source_var": "context",
+            "output_var": "task_list",
+            "extraction_prompt": "Extract each task/problem from this student worksheet. Include BOTH the question AND the student's answer for each task.\n\nStudent Work:\n{{context}}\n\nRules:\n- Each <item> must contain the full problem AND the student's answer\n- Keep all mathematical expressions exactly as written\n- Format: PROBLEM: [problem text] STUDENT_ANSWER: [their work/answer]\n\nOutput each task wrapped in <item> tags:\n<item>PROBLEM: Solve 3x + 7 = 22 STUDENT_ANSWER: x + 7 = 22, x = 15</item>",
+            "max_tokens": 600,
+            "temperature": 0.1,
+            "next": "check_tasks_exist"
+        },
+        "check_tasks_exist": {
+            "type": "classifier",
+            "prompt": "Check if any tasks were extracted.\n\nExtracted tasks: {{task_list}}\n\nRespond with:\n- process: if there are tasks to analyze\n- empty: if no tasks were found\n\nRespond with ONLY: <classification>category</classification>",
+            "max_tokens": 10,
+            "temperature": 0.1,
+            "routes": {
+                "process": "process_tasks_loop",
+                "empty": "no_tasks_found",
+                "*": "process_tasks_loop"
+            }
+        },
+        "no_tasks_found": {
+            "type": "generate",
+            "user_prompt": "I couldn't find any student work to analyze. Please submit student answers in a format like:\n\n1. [question] - [student answer]\n2. [question] - [student answer]\n\nOr paste the student's homework/test directly.",
+            "max_tokens": 100,
+            "next": "output"
+        },
+        "process_tasks_loop": {
+            "type": "foreach_loop",
+            "list_var": "task_list",
+            "item_var": "current_task",
+            "index_var": "task_index",
+            "body_node": "solve_task",
+            "accumulator_var": "task_analysis_results",
+            "max_iterations": 50,
+            "next": "compile_analysis"
+        },
+        "solve_task": {
+            "type": "generate",
+            "system_prompt": "You are a math expert. Solve the given math problem correctly. Show brief work and give the final answer.",
+            "user_prompt": "Task #{{task_index}}:\n{{current_task}}\n\nSolve this problem correctly. Show the key steps and final answer only.",
+            "output_var": "current_expert_answer",
+            "max_tokens": 200,
+            "temperature": 0.2,
+            "next": "analyze_task"
+        },
+        "analyze_task": {
+            "type": "generate",
+            "system_prompt": "You are a math teacher analyzing a student's work. Compare their answer to the correct solution and identify the SPECIFIC mathematical error.",
+            "user_prompt": "TASK #{{task_index}}:\n{{current_task}}\n\nCORRECT SOLUTION:\n{{current_expert_answer}}\n\nCompare the student's work to the correct solution:\n1. Is the student's final answer correct? (YES/NO)\n2. If NO, what SPECIFIC mathematical mistake did they make?\n\nRespond in EXACTLY this format:\nTask {{task_index}}: [CORRECT/INCORRECT] - [One sentence explaining the specific math error, or 'Answer is correct' if correct]",
+            "max_tokens": 100,
+            "temperature": 0.2,
+            "next": null
+        },
+        "compile_analysis": {
+            "type": "generate",
+            "system_prompt": "You MUST use ONLY the data provided below. Do NOT invent or hallucinate any information. Extract and summarize the errors from the provided task results.",
+            "user_prompt": "TASK ANALYSIS RESULTS (use ONLY this data):\n{% for result in task_analysis_results %}\n{{loop.index}}. {{result}}\n{% endfor %}\n\nBased ONLY on the task results above, list the skill gaps found. Copy the error descriptions directly from the results. Do NOT add any information not present above.\n\n**Skill Gaps Found:**",
+            "output_var": "analysis_report",
+            "max_tokens": 200,
+            "temperature": 0.1,
+            "next": "check_with_teacher"
+        },
+        "check_with_teacher": {
+            "type": "generate",
+            "system_prompt": "Restate the analysis below in 2-3 sentences. Do NOT add new information.",
+            "user_prompt": "Student: {{student_name}}\n\n{{analysis_report}}\n\nSummarize the above gaps in 2 sentences, then ask: Would you like practice worksheets?",
+            "max_tokens": 150,
+            "temperature": 0.2,
+            "next": "output"
+        },
+        "catcher": {
+            "type": "generate",
+            "system_prompt": "You are a curriculum designer. Create 3-5 targeted practice problems. Keep it short.",
+            "user_prompt": "Skill gaps:\n{{analysis_report}}\n\nCreate a SHORT worksheet (3-5 problems max) targeting these gaps for {{student_name}}. Just the problems, minimal instructions.",
+            "max_tokens": 400,
+            "next": "output"
+        },
+        "output": {
+            "type": "terminal"
+        }
+    },
+    "entry_node": "entry"
+}

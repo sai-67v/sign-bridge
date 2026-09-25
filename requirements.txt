@@ -1,0 +1,20 @@
+# Core inference (torch downgraded to 2.12.1 for Unsloth compatibility)
+torch==2.12.1
+torchvision==0.27.1
+torchaudio==2.11.0
+transformers==5.17.0
+peft==0.21.0
+accelerate==1.15.0
+bitsandbytes==0.50.2
+
+# Install torch with CUDA (must specify index separately):
+# pip install torch==2.12.1 torchvision==0.27.1 torchaudio==2.11.0 --index-url https://download.pytorch.org/whl/cu126
+
+# Unsloth (requires torch<2.13.0) — install separately:
+# pip install unsloth
+
+# Pipeline B
+mediapipe==0.10.14  # 1.0.x dropped mp.solutions; pin to last known-good
+opencv-python
+pyvirtualcam
+numpy

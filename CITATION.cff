@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+title: "Canis Teach: Giving Teachers the Classroom Back"
+message: "If you use Canis Teach, please cite this repository and the dataset."
+type: software
+authors:
+  - family-names: Nedilko
+    given-names: Marko
+    affiliation: CanisAI
+repository-code: "https://github.com/crasyK/canis-gemma4good"
+url: "https://canis.appwrite.network"
+license: Apache-2.0
+keywords:
+  - education
+  - gemma
+  - lora
+  - socratic-tutoring
+  - multilingual
+preferred-citation:
+  type: software
+  title: "Canis Teach: Giving Teachers the Classroom Back"
+  authors:
+    - family-names: Nedilko
+      given-names: Marko
+  year: 2026
+  url: "https://github.com/crasyK/canis-gemma4good"
+references:
+  - type: dataset
+    title: "Canis.teach R3 Multilingual Socratic Tutoring Dataset"
+    authors:
+      - name: CanisAI
+    year: 2026
+    url: "https://huggingface.co/datasets/CanisAI/teach-r3-multilingual"
+  - type: article
+    title: "The Gemma 4 Good Hackathon"
+    authors:
+      - family-names: Ballantyne
+        given-names: Ian
+      - family-names: Cameron
+        given-names: Glenn
+      - family-names: Cruz
+        given-names: María
+      - family-names: Lacombe
+        given-names: Olivier
+      - family-names: Quan
+        given-names: Kristen
+      - family-names: Sanseviero
+        given-names: Omar
+    year: 2026
+    url: "https://kaggle.com/competitions/gemma-4-good-hackathon"

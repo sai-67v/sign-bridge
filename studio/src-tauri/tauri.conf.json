@@ -1,0 +1,84 @@
+{
+  "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
+  "build": {
+    "beforeBuildCommand": "yarn build",
+    "beforeDevCommand": "yarn start",
+    "devPath": "http://localhost:1241",
+    "distDir": "../build"
+  },
+  "package": {
+    "productName": "canis.studio",
+    "version": "0.31.6"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true
+    },
+    "bundle": {
+      "active": true,
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "studio.canis.app",
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [],
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://komersions.vercel.app/api/release/{{target}}/{{current_version}}"
+      ],
+      "dialog": false,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IENCNTcyM0Y5RUVCRTk1NzQKUldSMGxiN3UrU05YeTZpYkxRTitkWTVWWkI1ZnI1RVBQVHRaOWpqWnN5cHIvcTJBeHRLdkZPU3MK"
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "decorations": false,
+        "center": true,
+        "height": 900,
+        "resizable": true,
+        "title": "canis.studio",
+        "width": 1360,
+        "minWidth": 730,
+        "minHeight": 650,
+        "visible": false
+      },
+      {
+        "width": 345,
+        "height": 370,
+        "decorations": false,
+        "center": true,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
+      }
+    ]
+  }
+}

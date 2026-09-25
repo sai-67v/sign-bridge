@@ -1,0 +1,16 @@
+.eggs
+*.egg-info
+build
+dist
+dist-docs
+*.pyd
+*.pyc
+*.zip
+*.exe
+.vscode
+tmp
+wheelhouse
+external/miniconda*
+*.png
+*.json
+env

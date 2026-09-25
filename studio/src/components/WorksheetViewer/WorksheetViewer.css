@@ -1,0 +1,593 @@
+.worksheet-viewer {
+    width: 100%;
+    max-width: min(48rem, 100%);
+    margin: 0 auto;
+    padding: 0.35rem 0.25rem 2rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.worksheet-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0 0 0.5rem 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--common-border-color, #e5e5e5) 55%, transparent);
+}
+
+.worksheet-header--minimal {
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.35rem;
+    border-bottom-color: color-mix(in srgb, var(--common-border-color, #e5e5e5) 40%, transparent);
+}
+
+.ai-usage-badge {
+    background: var(--common-btn-bg-color, #f4f4f5);
+    color: var(--common-semidark-text-color, #525252);
+    border: 1px solid var(--common-border-color, #e5e5e5);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Content container */
+.worksheet-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* Markdown sections (regular text between tags) */
+.worksheet-markdown {
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+/* Task blocks - read-only question/instruction areas */
+.worksheet-task {
+    display: flex;
+    gap: 1rem;
+    padding: 1.35rem 1.35rem 1.45rem;
+    background: var(--common-bg-color, #fff);
+    border: 1px solid color-mix(in srgb, var(--common-border-color, #e5e5e5) 65%, transparent);
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.task-marker {
+    flex-shrink: 0;
+    width: 0.2rem;
+    align-self: stretch;
+    margin-top: 0.2rem;
+    border-radius: 1px;
+    background: var(--paper-rule-color, rgba(38, 38, 38, 0.18));
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    overflow: hidden;
+}
+
+.task-content {
+    flex: 1;
+}
+
+/* Teacher editable tasks */
+.worksheet-task.teacher-editable {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.worksheet-task.teacher-editable:hover {
+    border-color: var(--common-border-hl-color, #a3a3a3);
+    box-shadow: none;
+}
+
+.task-edit-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.task-content.clickable {
+    position: relative;
+}
+
+.task-content.clickable .edit-hint {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.75rem;
+    color: var(--common-semidark-text-color, #525252);
+    background: color-mix(in srgb, var(--common-border-color, #e5e5e5) 40%, transparent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.task-content.clickable:hover .edit-hint {
+    display: inline-block;
+}
+
+/* TipTap surface when teacher edits a question */
+.worksheet-task-editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.worksheet-task-editor__surface {
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--common-border-color, #d4d4d4) 70%, transparent);
+    background: var(--common-bg-color, #fff);
+    padding: 0.5rem 0.65rem 0.75rem;
+}
+
+.worksheet-task-editor__prose {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--common-text-color, #171717);
+}
+
+.worksheet-task-editor__prose .ProseMirror {
+    outline: none;
+    min-height: 7rem;
+}
+
+.task-edit-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.75rem;
+    border: 1px solid var(--common-border-color, #d4d4d4);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: ui-monospace, monospace;
+    line-height: 1.5;
+    resize: vertical;
+    background: var(--common-bg-color, #fff);
+    color: var(--common-text-color, #171717);
+}
+
+.task-edit-textarea:focus {
+    outline: none;
+    border-color: var(--common-border-hl-color, #404040);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--common-border-hl-color, #404040) 18%, transparent);
+}
+
+.task-edit-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.task-save-btn,
+.task-cancel-btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.task-save-btn {
+    background: var(--common-text-color, #171717);
+    color: var(--common-bg-color, #fafafa);
+    border: 1px solid var(--common-text-color, #171717);
+}
+
+.task-save-btn:hover {
+    background: var(--common-semidark-text-color, #404040);
+    border-color: var(--common-semidark-text-color, #404040);
+}
+
+.task-cancel-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.task-cancel-btn:hover {
+    background: var(--bg-secondary);
+}
+
+/* Rendered markdown in task blocks */
+.rendered-markdown {
+    white-space: normal;
+}
+
+.rendered-markdown h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.rendered-markdown h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.rendered-markdown p {
+    margin: 0.5rem 0;
+}
+
+.rendered-markdown p:last-child {
+    margin-bottom: 0;
+}
+
+.rendered-markdown ul,
+.rendered-markdown ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.rendered-markdown code {
+    background: color-mix(in srgb, var(--common-border-color, #e5e5e5) 45%, transparent);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-family: ui-monospace, monospace;
+}
+
+.rendered-markdown strong {
+    font-weight: 600;
+}
+
+/* Input wrappers */
+.worksheet-input-wrapper {
+    display: block;
+}
+
+.worksheet-input-wrapper.inline {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.worksheet-input-wrapper.short {
+    display: inline-block;
+    margin: 0 0.25rem;
+}
+
+.worksheet-input-wrapper.long {
+    margin: 1rem 0;
+}
+
+/* Single-line input */
+.worksheet-input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--common-border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    background: var(--common-bg-color);
+    color: var(--common-text-color);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.worksheet-input:focus {
+    outline: none;
+    border-color: var(--common-border-hl-color, #262626);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--common-border-hl-color, #262626) 20%, transparent);
+}
+
+.worksheet-input:disabled {
+    background: var(--common-btn-bg-hover-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.worksheet-input.short {
+    width: 80px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Long text area input */
+.worksheet-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.75rem;
+    border: 1px solid var(--common-border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    background: var(--common-bg-color);
+    color: var(--common-text-color);
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.worksheet-textarea::placeholder {
+    color: var(--common-semidark-text-color);
+    font-style: italic;
+}
+
+.worksheet-textarea:focus {
+    outline: none;
+    border-color: var(--common-border-hl-color, #262626);
+    background: var(--common-bg-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--common-border-hl-color, #262626) 20%, transparent);
+}
+
+.worksheet-textarea:disabled {
+    background: var(--common-btn-bg-hover-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.input-label {
+    font-size: 0.8rem;
+    color: var(--common-semidark-text-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Answer fields: opaque panel so notebook lines never show through */
+.worksheet-answer-field {
+    padding: 1rem 1.15rem 1.1rem;
+    margin: 0.2rem 0 0.35rem;
+    border-radius: 10px;
+    background: var(--common-bg-color, #ffffff);
+    border: 1px solid color-mix(in srgb, var(--common-border-color, #e5e5e5) 60%, transparent);
+    box-shadow: none;
+}
+
+.worksheet-answer-field--long {
+    padding-bottom: 1.1rem;
+}
+
+.worksheet-answer-field__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+}
+
+/* Shadcn inputs use bg-transparent + disabled:opacity-50 — force paper-like inkwell so answers stay readable */
+.worksheet-answer-field .worksheet-answer-field__control,
+.worksheet-answer-field input.worksheet-answer-field__control,
+.worksheet-answer-field textarea.worksheet-answer-field__control {
+    width: 100%;
+    max-width: 100%;
+    background-color: #fafafa !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.04);
+}
+
+.worksheet-answer-field .worksheet-answer-field__control::placeholder,
+.worksheet-answer-field input.worksheet-answer-field__control::placeholder,
+.worksheet-answer-field textarea.worksheet-answer-field__control::placeholder {
+    color: #64748b !important;
+    opacity: 1;
+}
+
+.worksheet-answer-field .worksheet-answer-field__control:disabled,
+.worksheet-answer-field input.worksheet-answer-field__control:disabled,
+.worksheet-answer-field textarea.worksheet-answer-field__control:disabled {
+    opacity: 1 !important;
+    cursor: default;
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a;
+}
+
+.worksheet-answer-field textarea.worksheet-answer-field__control {
+    min-height: 7.5rem;
+}
+
+.worksheet-answer-field__answer-foot {
+    margin: 0.5rem 0 0;
+    line-height: 1.45;
+    color: #334155;
+}
+
+.worksheet-answer-field__answer-foot .font-medium {
+    color: #1e293b;
+}
+
+/* Teacher preview of student answers */
+.student-answer-preview {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: color-mix(in srgb, var(--common-btn-bg-color, #f4f4f5) 88%, transparent);
+    border-radius: 6px;
+    border: 1px solid var(--common-border-color, #e5e5e5);
+}
+
+.student-answer-preview .preview-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--common-semidark-text-color, #525252);
+    margin-right: 0.5rem;
+}
+
+.student-answer-preview .preview-content {
+    color: var(--common-text-color, #171717);
+}
+
+/* Error state */
+.worksheet-error {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.worksheet-error code {
+    background: color-mix(in srgb, var(--common-border-color, #e5e5e5) 45%, transparent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: ui-monospace, monospace;
+}
+
+.ai-disabled-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.65rem 1rem;
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #991b1b;
+}
+
+/* Footer notices */
+.worksheet-footer {
+    margin-top: 2rem;
+    padding: 0.85rem 1rem;
+    background: color-mix(in srgb, var(--common-btn-bg-color, #f4f4f5) 75%, transparent);
+    border-radius: 6px;
+    border: 1px solid var(--common-border-color, #e5e5e5);
+}
+
+.ai-notice {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--common-semidark-text-color, #525252);
+}
+
+/* AI usage log for teachers */
+.ai-usage-log {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: transparent;
+    border-radius: 6px;
+    border: 1px solid var(--common-border-color, #e5e5e5);
+}
+
+.ai-usage-log h4 {
+    margin: 0;
+    color: var(--common-text-color, #171717);
+}
+
+.ai-usage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.ai-usage-reset-btn {
+    background: transparent;
+    border: 1px solid var(--common-border-color, #d4d4d4);
+    color: var(--common-text-color, #171717);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ai-usage-reset-btn:hover {
+    background: var(--common-btn-bg-hover-color, rgba(0, 0, 0, 0.05));
+    border-color: var(--common-border-hl-color, #a3a3a3);
+    color: var(--common-text-color, #171717);
+}
+
+.ai-log-entry {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--common-border-color, #e5e5e5);
+    font-size: 0.85rem;
+}
+
+.ai-log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.log-question {
+    color: var(--text-primary);
+}
+
+/* Student class assignment — final submit */
+.worksheet-submit-bar {
+    margin-top: 1.75rem;
+    padding: 1rem 1.1rem 1.15rem;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--common-border-color, #e5e5e5) 55%, transparent);
+    background: color-mix(in srgb, var(--common-btn-bg-color, #f4f4f5) 55%, transparent);
+}
+
+/* Add Question button */
+.worksheet-add-question {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding: 1.1rem 1rem 1.15rem;
+    border-radius: 6px;
+    border: 1px dashed var(--common-border-color, #d4d4d4);
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.add-question-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    border: 1px dashed var(--common-border-color, #a3a3a3);
+    background: transparent;
+    color: var(--common-text-color, #171717);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.add-question-btn:hover {
+    background: var(--common-btn-bg-hover-color, rgba(0, 0, 0, 0.05));
+    color: var(--common-text-color, #171717);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+
+    .worksheet-input,
+    .worksheet-textarea {
+        background: #1f2937;
+        color: #f3f4f6;
+        border-color: #4b5563;
+    }
+
+    .worksheet-input:focus,
+    .worksheet-textarea:focus {
+        background: #111827;
+    }
+
+    .worksheet-input:disabled,
+    .worksheet-textarea:disabled {
+        background: #374151;
+    }
+
+    .worksheet-input.short {
+        background: #1f2937;
+    }
+
+    /* Keep answer wells light-on-dark text for readability (worksheet = paper form) */
+    .worksheet-answer-field {
+        background: var(--common-bg-color, #fafafa);
+        border-color: var(--common-border-color, #e2e8f0);
+    }
+}

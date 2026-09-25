@@ -1,0 +1,36 @@
+.command-pallete {
+  @apply flex flex-col fixed w-full h-screen items-center justify-center px-2 py-2 z-[200] transition-all;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.autosuggest-commands {
+  @apply w-[500px] rounded-b-md shadow-lg absolute top-[37px] -left-[1px];
+  @apply max-h-56 overflow-y-auto border-t transition-all;
+  background-color: var(--common-bg-color);
+  border-top-color: var(--common-border-light-color);
+}
+
+.command-item {
+  @apply w-full px-3 py-1.5 text-sm flex gap-2;
+  color: var(--common-text-color);
+}
+
+.command-item:hover {
+  background-color: var(--common-btn-bg-hover-color);
+}
+
+.command-item.active {
+  background-color: var(--common-light-bg-color);
+}
+
+.command-search-container {
+  @apply w-[500px] relative rounded-lg shadow-lg flex items-center py-1.5 transition-all;
+  background-color: var(--common-bg-color);
+  border: 1px solid var(--common-border-color);
+  color: var(--common-text-color);
+}
+
+.command-search-container.has-suggest-item {
+  @apply rounded-b-none;
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "canis-pipeline-v1",
+  "name": "TEACH",
+  "description": "Socratic homework tutor — single R3 adapter (no per-subject LoRA routing)",
+  "variables": {
+    "context": {
+      "type": "string",
+      "default": "",
+      "persist": true
+    },
+    "extracted_context": {
+      "type": "string",
+      "default": "",
+      "persist": true
+    },
+    "student_name": {
+      "type": "string",
+      "default": "Student",
+      "persist": true
+    },
+    "awaiting_clarification": {
+      "type": "string",
+      "default": "",
+      "persist": true
+    },
+    "original_query": {
+      "type": "string",
+      "default": "",
+      "persist": true
+    }
+  },
+  "nodes": {
+    "entry": {
+      "type": "classifier",
+      "adapter": null,
+      "prompt": "You are a message classifier for a homework tutoring session.\n\nAWAITING_CLARIFICATION: [{{awaiting_clarification}}]\nCURRENT_CONTEXT: [{{extracted_context}}]\n\nMessage: {{input}}\n\nCategories:\n- clarification_response: We asked the user to clarify which task they meant. If AWAITING_CLARIFICATION above is NOT empty (has text between the brackets), classify as this.\n- task_request: Asking about a specific task/question (like 'help with b)' or 'explain question 3')\n- continuation: A response to an ongoing tutoring conversation (answers, attempts, 'I don't know', questions about current problem). Use if CURRENT_CONTEXT has content.\n- general_question: General subject question without specific task reference AND no ongoing context\n- casual: Clearly off-topic conversation unrelated to homework\n\nDECISION PRIORITY:\n1. If AWAITING_CLARIFICATION has text → clarification_response\n2. If CURRENT_CONTEXT has text and message is short/conversational → continuation\n3. If message references a task → task_request\n4. Otherwise → general_question or casual\n\nRespond with ONLY: <classification>your_answer</classification>",
+      "max_tokens": 50,
+      "temperature": 0.1,
+      "routes": {
+        "clarification_response": "resolve_clarification",
+        "task_request": "extract_context",
+        "continuation": "teach_gen",
+        "general_question": "teach_gen",
+        "casual": "decline_casual",
+        "*": "teach_gen"
+      }
+    },
+    "resolve_clarification": {
+      "type": "extractor",
+      "source_var": "context",
+      "query_var": "input",
+      "output_var": "extracted_context",
+      "clarify_node": "clarify_task",
+      "next": "clear_clarification"
+    },
+    "clear_clarification": {
+      "type": "transform",
+      "input_var": "input",
+      "output_var": "awaiting_clarification",
+      "operation": "template",
+      "pattern": "",
+      "next": "teach_gen"
+    },
+    "extract_context": {
+      "type": "extractor",
+      "source_var": "context",
+      "query_var": "input",
+      "output_var": "extracted_context",
+      "clarify_node": "set_awaiting_clarification",
+      "next": "clear_awaiting_on_success"
+    },
+    "clear_awaiting_on_success": {
+      "type": "transform",
+      "input_var": "input",
+      "output_var": "awaiting_clarification",
+      "operation": "template",
+      "pattern": "",
+      "next": "teach_gen"
+    },
+    "set_awaiting_clarification": {
+      "type": "transform",
+      "input_var": "clarify_options",
+      "output_var": "awaiting_clarification",
+      "operation": "template",
+      "pattern": "{{clarify_options}}",
+      "next": "clarify_task"
+    },
+    "clarify_task": {
+      "type": "clarify",
+      "clarify_prompt": "I found multiple tasks that could match '{{input}}'. Which one did you mean?\n\n{{clarify_options}}\n\nPlease specify which task you need help with (e.g., 'Section 1 task b' or 'Section 2 task b').",
+      "options_var": "clarify_options",
+      "max_attempts": 3,
+      "fallback_node": "clarify_failed",
+      "next": "output"
+    },
+    "clarify_failed": {
+      "type": "generate",
+      "adapter": "teach",
+      "alpha": 1.0,
+      "system_prompt": "You are a supportive K-12 tutor. Use Socratic questioning and avoid giving final answers directly.",
+      "user_prompt": "I'm having trouble understanding which specific task you need help with. Could you please describe the problem you're working on in more detail, or copy the exact question text?",
+      "max_tokens": 150,
+      "temperature": 0.7,
+      "next": "clear_clarification_failed"
+    },
+    "clear_clarification_failed": {
+      "type": "transform",
+      "input_var": "input",
+      "output_var": "awaiting_clarification",
+      "operation": "template",
+      "pattern": "",
+      "next": "output"
+    },
+    "teach_gen": {
+      "type": "generate",
+      "adapter": "teach",
+      "alpha": 1.0,
+      "system_prompt": "You are a supportive K-12 tutor helping {{student_name}}. Use Socratic questioning, scaffold reasoning, and avoid giving the final answer directly. Keep responses age-appropriate.\n\nIMPORTANT: If context is provided below, it contains the specific problem the student is working on. Use this information directly — do NOT ask the student what the problem is.\n\nRelevant context:\n{{extracted_context}}\n\nGuidelines:\n- If context contains the problem, start helping solve it immediately\n- Guide the student step by step\n- Use the conversation history below to stay in context",
+      "user_prompt": "Previous conversation:\n{{chat_history}}\n\nCurrent message from student: {{input}}",
+      "max_tokens": 512,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "decline_casual": {
+      "type": "generate",
+      "adapter": "teach",
+      "alpha": 1.0,
+      "system_prompt": "You are a polite educational assistant. The student is having casual off-topic conversation.",
+      "user_prompt": "Previous conversation:\n{{chat_history}}\n\nCurrent message: {{input}}\n\nPolitely acknowledge but redirect to homework help. Be friendly but brief.",
+      "max_tokens": 150,
+      "temperature": 0.7,
+      "next": "output"
+    },
+    "output": {
+      "type": "terminal"
+    }
+  },
+  "entry_node": "entry"
+}

@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Outfit', sans-serif;
+  @apply h-screen overflow-hidden;
+  color: var(--common-text-color);
+  background-color: var(--common-bg-color);
+
+  /* Global Theme Variables - Light Mode Default */
+  --common-text-color: #1e293b;
+  /* slate-800 */
+  --common-semidark-text-color: #475569;
+  /* slate-600 */
+  --common-dark-text-color: #94a3b8;
+  /* slate-400 */
+  --common-text-hover-color: #0f172a;
+  /* slate-900 */
+
+  --common-bg-color: #ffffff;
+  --common-dark-bg-color: #f8fafc;
+  /* slate-50 */
+  --common-darker-bg-color: #f1f5f9;
+  /* slate-100 */
+  --common-light-bg-color: #f1f5f9;
+  /* slate-100 */
+
+  --common-border-hl-color: #262626;
+  /* ink highlight / focus ring hue */
+  --common-border-light-color: rgba(0, 0, 0, 0.09);
+
+  --common-btn-bg-color: rgba(0, 0, 0, 0.04);
+  --common-btn-bg-hover-color: rgba(0, 0, 0, 0.08);
+  --common-btn-bg-active-color: rgba(0, 0, 0, 0.12);
+
+  --common-primary-color: #262626;
+  /* ink primary */
+  --common-primary-hover-color: #404040;
+  /* neutral hover */
+  --common-primary-text-color: #fafafa;
+
+  --common-border-color: rgba(0, 0, 0, 0.1);
+
+  --sidebar-background-color: #f8fafc;
+  /* slate-50 */
+  --sidebar-text-color: #64748b;
+  /* slate-500 */
+  --sidebar-text-color-hover: #1e293b;
+  /* slate-800 */
+  --sidebar-title-color: #334155;
+  /* slate-700 */
+
+  --sidebar-user-setting-border-color: rgba(0, 0, 0, 0.06);
+  --sidebar2-background-color: #ffffff;
+  --sidebar2-item-active-color: rgba(139, 92, 246, 0.1);
+  --sidebar2-item-hover-color: rgba(0, 0, 0, 0.04);
+
+  --editor-text-color: #1e293b;
+  --editor-link-text-color: #7c3aed;
+  --editor-quote-text-color: #475569;
+
+  /* Editor surface tokens (theme-aware) */
+  --editor-surface: var(--common-bg-color);
+  --editor-surface-elevated: var(--common-dark-bg-color);
+  --editor-text: var(--common-text-color);
+  --editor-text-secondary: var(--common-semidark-text-color);
+  --editor-text-faint: var(--common-dark-text-color);
+  --editor-border: var(--common-border-light-color);
+  --editor-accent: var(--common-primary-color);
+  --editor-code-bg: var(--common-darker-bg-color);
+
+  --modal-bg-color: #ffffff;
+  --modal-footer-bg-color: #f8fafc;
+  --modal-border-color: rgba(0, 0, 0, 0.08);
+  --setting-bg-color: #f1f5f9;
+
+  --sign-bg-color: #f1f5f9;
+  --sign-form-bg-color: rgba(255, 255, 255, 0.85);
+
+  --dropdown-bg-color: #ffffff;
+  --dropdown-bg-hover-color: #f1f5f9;
+
+  --tag-bg-color: #f1f5f9;
+  --tag-text-color: #64748b;
+
+  --button-border-active-color: #262626;
+  --button-text-active-color: #fafafa;
+
+  /* Full-bleed pad view: one calm surface; paper card sits on top */
+  --pad-canvas-bg: var(--common-dark-bg-color);
+
+  /* shadcn/ui — HSL channel triplets for hsl(var(--token)) */
+  --radius: 0.5rem;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 3.9%;
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 96.1%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 0 0% 45.1%;
+  --accent: 0 0% 96.1%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 89.8%;
+  --input: 0 0% 89.8%;
+  --ring: 0 0% 3.9%;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  @apply backdrop-blur-xl rounded-2xl shadow-2xl;
+  background-color: var(--common-bg-color);
+  border: 1px solid var(--common-border-color);
+  opacity: 0.95;
+}
+
+.glass-panel-heavy {
+  @apply backdrop-blur-2xl rounded-2xl;
+  background-color: var(--common-dark-bg-color);
+  border: 1px solid var(--common-border-color);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-canis-purple to-cosmic-pink;
+  }
+
+  .bg-gradient-vibrant {
+    @apply bg-gradient-to-br from-canis-purple via-cosmic-pink to-orange-500;
+  }
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  transition: margin-right 0.3s ease;
+}
+
+.app-main-layout {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Same canvas as .pad-workspace__sheet (sidebar + main gutter share one tone) */
+.app-workspace-shell {
+  background-color: var(--pad-canvas-bg, var(--common-dark-bg-color));
+}
+
+.app-workspace-shell > .main-content {
+  background-color: transparent;
+  position: relative;
+  z-index: 0;
+}
+
+.main-content.with-sidebar {
+  margin-right: 400px;
+}
+
+#theme-setting {
+  color: var(--common-text-color);
+  border: 1px solid var(--common-border-light-color);
+  height: calc(100vh - 0px);
+  overflow: hidden;
+}
+
+.bg {
+  background-color: var(--common-bg-color);
+}
+
+.bg-primary {
+  background-color: var(--common-primary-color);
+}
+
+.bg-dark {
+  background-color: var(--common-dark-bg-color);
+}
+
+.bg-light {
+  background-color: var(--common-light-bg-color);
+}
+
+.text-color-primary {
+  color: var(--common-primary-color);
+}
+
+.text-color-base {
+  color: var(--common-text-color);
+}
+
+.text-color-light {
+  color: var(--common-semidark-text-color);
+}
+
+.text-color-dark {
+  color: var(--common-dark-text-color);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--common-border-light-color);
+}
+
+.border-color-base {
+  border-color: var(--common-border-light-color);
+}
+
+.border-color-dark {
+  border-color: var(--common-border-color);
+}
+
+.btn-color-base {
+  background-color: var(--common-btn-bg-color);
+}
+
+.div-y> :not(:first-child) {
+  border-top: 1px solid var(--common-border-light-color);
+}
+
+.App main {
+  @apply flex-grow;
+  background-color: var(--common-bg-color);
+}
+
+.main-content {
+  @apply w-full;
+}
+
+.layout-clear .titlebar {
+  @apply fixed w-full hover:bg-transparent;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--common-primary-color) 25%, transparent);
+  color: var(--common-text-color);
+}
+
+@import url("./modal.css");
+@import url("./scrollbar.css");
+@import url("./form.css");
+@import url("./advanced-setting.css");
+@import url("./prosemirror.css");
+@import url("./tiptap.css");
+@import url("./button.css");
+@import url("./sign.css");
+@import url("./sidebar.css");
+@import url("./pad.css");
+@import url("./dropdown.css");
+@import url("./theme.css");
+@import url("./word-count.css");
+@import url("./mermaid.css");
+@import url("./command-palletes.css");
+@import url("./listbox.css");
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-fade-in-up,
+  .animate-pulse-slow {
+    animation: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+build/
+.git/
+.cache/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+# Generated from pdfjs-dist on postinstall (same-origin worker)
+public/pdf.worker.mjs

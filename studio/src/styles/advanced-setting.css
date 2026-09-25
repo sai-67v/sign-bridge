@@ -1,0 +1,104 @@
+.advanced-setting-wrapper {
+  background-color: var(--setting-bg-color);
+}
+
+.setting-menu-item {
+  @apply rounded-md px-3 py-2 flex items-center text-sm font-medium;
+  color: var(--common-text-color);
+  transition: background-color 0.15s, color 0.15s;
+} 
+
+.setting-menu-item.inactive{
+  color: var(--common-text-color);
+}
+
+.setting-menu-item.inactive:hover{
+  background-color: var(--common-dark-bg-color)
+}
+
+.setting-menu-item.active {
+  color: var(--common-primary-color);
+  background-color: var(--common-dark-bg-color);
+}
+
+.setting-menu-item .icon {
+  @apply flex-shrink-0 -ml-1 mr-3 h-6 w-6;
+  @apply text-gray-400 group-hover:text-gray-500;
+  color: var(--common-text-color);
+}
+
+.setting-menu-item.active .icon {
+  /* @apply text-yellow-500 group-hover:text-yellow-500; */
+  color: var(--common-primary-color);
+}
+
+.advanced-setting-card {
+  @apply py-6 px-4 space-y-6 sm:p-6;
+  background-color: var(--common-dark-bg-color);
+  color: var(--common-text-color);
+}
+
+.advanced-setting-card.no-space{
+  @apply space-y-0;
+}
+
+.card-bottom {
+  @apply px-4 py-3 text-right sm:px-6 border-t;
+  background-color: var(--common-dark-bg-color);
+  border-color: var(--common-border-light-color);
+}
+
+.title {
+  @apply text-lg leading-6 font-medium;
+  color: var(--common-text-color);
+}
+
+.paragraph {
+  @apply mt-1 text-sm;
+  color: var(--common-text-color);
+}
+
+/* Profile page: emoji profile picture picker */
+.profile-page-emoji-preview {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.profile-page-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+}
+
+.profile-page-emoji-option {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--common-btn-bg-color);
+  color: var(--common-text-color);
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.15s;
+}
+
+.profile-page-emoji-option:hover:not(:disabled) {
+  background-color: var(--common-btn-bg-hover-color);
+  transform: scale(1.1);
+}
+
+.profile-page-emoji-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

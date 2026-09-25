@@ -1,0 +1,72 @@
+.classroom-manager { padding: 32px; max-width: 1000px; margin: 0 auto; }
+.cm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.cm-header h1 { font-size: 24px; font-weight: 700; margin: 0; }
+.cm-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 700px) { .cm-layout { grid-template-columns: 1fr; } }
+.cm-list { display: flex; flex-direction: column; gap: 12px; }
+.cm-loading, .cm-empty { color: var(--common-dark-text-color); font-size: 14px; padding: 16px 0; }
+.cm-empty-small { font-size: 13px; color: var(--common-dark-text-color); margin: 8px 0; }
+
+.classroom-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--common-btn-bg-color);
+  border: 1px solid var(--common-border-color);
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.classroom-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.classroom-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.classroom-name { font-weight: 600; font-size: 16px; }
+.classroom-subject { font-size: 12px; background: var(--common-primary-color); color: #fff; padding: 2px 8px; border-radius: 10px; }
+.classroom-grade { font-size: 12px; color: var(--common-dark-text-color); margin-bottom: 8px; }
+.classroom-invite { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.invite-label { font-size: 11px; color: var(--common-dark-text-color); }
+.invite-code { font-family: monospace; font-size: 14px; font-weight: 700; letter-spacing: 2px; color: var(--common-primary-color); }
+.invite-copy { background: none; border: none; cursor: pointer; color: var(--common-dark-text-color); padding: 2px; }
+
+.cm-detail { padding: 16px; border-radius: 12px; background: var(--common-bg-color); border: 1px solid var(--common-border-color); }
+.cm-detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cm-detail-header h2 { font-size: 18px; font-weight: 600; margin: 0; }
+.cm-detail-actions { display: flex; gap: 8px; }
+.cm-members-section h3 { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.member-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 8px; background: var(--common-btn-bg-color); margin-bottom: 6px; }
+.member-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--common-primary-color); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.member-info { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.member-id { font-size: 12px; color: var(--common-dark-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.member-role { font-size: 11px; font-weight: 600; }
+.member-role.role-student { color: #3b82f6; }
+.member-role.role-teacher { color: #8b5cf6; }
+.member-remove { background: none; border: none; cursor: pointer; color: var(--common-dark-text-color); padding: 4px; opacity: 0; }
+.member-row:hover .member-remove { opacity: 0.6; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-box { background: var(--common-bg-color); border-radius: 16px; padding: 28px; width: 100%; max-width: 440px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.modal-title { font-size: 20px; font-weight: 700; margin: 0 0 20px; }
+.modal-form { display: flex; flex-direction: column; gap: 14px; }
+.modal-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--common-dark-text-color); }
+.modal-form input, .modal-form textarea { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--common-border-color); background: var(--common-dark-bg-color); color: var(--common-text-color); font-size: 14px; outline: none; }
+.modal-form input:focus, .modal-form textarea:focus { border-color: var(--common-primary-color); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+.btn-primary { background: var(--common-primary-color); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-secondary { background: var(--common-btn-bg-color); color: var(--common-text-color); border: 1px solid var(--common-border-color); padding: 8px 16px; border-radius: 8px; font-size: 14px; cursor: pointer; }
+.btn-secondary:hover { background: var(--common-btn-bg-hover-color); }
+
+/* ── Distribute Modal ── */
+.distribute-modal { max-width: 380px; }
+.distribute-subtitle { font-size: 14px; color: var(--common-dark-text-color); margin: 0 0 20px; }
+.distribute-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.distribute-label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--common-dark-text-color); }
+.distribute-select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--common-border-color); background: var(--common-dark-bg-color); color: var(--common-text-color); font-size: 14px; outline: none; cursor: pointer; }
+.distribute-select:focus { border-color: var(--common-primary-color); }
+.distribute-error { color: #ef4444; font-size: 13px; margin: 0; }
+.distribute-empty { font-size: 13px; color: var(--common-dark-text-color); padding: 8px 0 16px; }
+.distribute-success { padding: 16px 0; text-align: center; font-size: 14px; color: #059669; }
+.distribute-student-count { font-size: 14px; color: var(--editor-text-secondary); margin: 0; }
+.distribute-print-link { margin: 12px 0 0; text-align: center; }
+.distribute-print-btn { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--editor-text-faint); text-decoration: underline; padding: 0; }
+.distribute-print-btn:hover { color: var(--editor-accent); }
+.distribute-modal-actions { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--common-border-color); }
+.distribute-send-btn { min-width: 100px; padding: 10px 20px; font-size: 15px; }
